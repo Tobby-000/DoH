@@ -15,3 +15,4 @@ inspectionProfiles
 __pycache__
 .idea
 .git
+main.py
