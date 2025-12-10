@@ -6,7 +6,8 @@ def domain_encoder(domain:str)->bytearray:
         domain_hex+=sp.encode('ascii')
     domain_hex.append(0)
     return domain_hex
-def domain_decoder(index:int,domain_hex,depth=0):#index索引，domain_hex原始二进制，depth深度   输出domain解析后的域名，after_domain域名后的索引
+def domain_decoder(index:int,domain_hex,depth=0):
+    #index索引，domain_hex原始二进制，depth深度   输出domain解析后的域名，after_domain域名后的索引
     domain = ""
     after_domain=index
     i=0

@@ -1,3 +1,4 @@
+from typing import Optional
 class DnsFlags(object):
     # dns flags类
     qr:bool=True;opcode:int=0;aa:bool=False
@@ -59,9 +60,12 @@ class DnsHeader:
     answer:int
     ns_answer:int
     ex_answer:int
-    def __init__(self,transaction_id:int=0,flags:DnsFlags=DnsFlags(),question:int=0,answer:int=0,ns_answer:int=0,ex_answer:int=0):
+    def __init__(self,transaction_id:int=0,flags: Optional[DnsFlags] = None,question:int=0,answer:int=0,ns_answer:int=0,ex_answer:int=0):
         self.transaction_id=transaction_id
-        self.flags=flags
+        if flags is None:
+            self.flags = DnsFlags()
+        else:
+            self.flags = flags
         self.question=question
         self.answer=answer
         self.ns_answer=ns_answer
@@ -69,7 +73,7 @@ class DnsHeader:
     @classmethod
     def from_bytes(cls, byte:bytearray):
         inst=cls()
-        inst.transaction_id=int.from_bytes(byte[:2])
+        inst.transaction_id=int.from_bytes(byte[:2], 'big')
         inst.flags=DnsFlags.from_bytearray(byte[2:4])
         inst.question=int.from_bytes(byte[4:6], 'big')
         inst.answer=int.from_bytes(byte[6:8], 'big')
