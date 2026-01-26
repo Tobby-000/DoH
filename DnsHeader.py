@@ -32,7 +32,7 @@ class DnsFlags(object):
         byte_num|=(self.z&0b111)<<4
         byte_num|=self.rcode&0b1111
         return byte_num.to_bytes(2,'big')
-    def print(self):
+    def print_member(self):
         print(self.to_bytearray().hex())
         print("QR",self.qr)
         print("OPCODE",self.opcode)
@@ -90,12 +90,12 @@ class DnsHeader:
         byte+=self.ns_answer.to_bytes(2,'big')
         byte+=self.ex_answer.to_bytes(2,'big')
         return byte
-    def print(self,show_flags:bool=True)->None:
+    def print_member(self,show_flags:bool=True)->None:
         print(self.to_bytearray().hex())
         print("transaction_id",self.transaction_id)
         if show_flags:
             print("flags")
-            self.flags.print()
+            self.flags.print_member()
         else:
             print("flags",self.flags.to_bytearray().hex())
         print("question",self.question)
