@@ -39,7 +39,7 @@ def domain_decode(index:int,hex,depth=0):#index索引，hex原始二进制，dep
         if hex[after_domain]&0xC0==0xC0:
             if after_domain!=index:
                 domain+="."
-            pos = int.from_bytes(hex[after_domain:after_domain+2])-0XC000
+            pos = int.from_bytes(hex[after_domain:after_domain+2])&0X3fff
             if hex == "":
                 print("domain_decode ERROR:full_hex is empty")
             if depth > 10:
